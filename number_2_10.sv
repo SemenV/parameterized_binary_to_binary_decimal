@@ -1,11 +1,11 @@
-module number_2_10  #(numberOfDigits = 3,busWidth = 4) ( 
+module number_2_10  #(numberOfDigits = 3) ( 
 input clk,rst,digitCIn,
-input [numberOfDigits-1:0][busWidth-1:0] digitIn ,
-output [numberOfDigits-1:0][busWidth-1:0] digitOut  ,
+input [numberOfDigits-1:0][3:0] digitIn ,
+output [numberOfDigits-1:0][3:0] digitOut  ,
 output digitCOut 
 );
 //  			  i                j
-wire [numberOfDigits-1:0][numberOfDigits:0][busWidth-1:0] digitInOut  ;
+wire [numberOfDigits-1:0][numberOfDigits:0][3:0] digitInOut  ;
 wire  [numberOfDigits:0][numberOfDigits:0] digitCInOut  ;
 
 assign digitCInOut[0][0] = digitCIn;
@@ -32,7 +32,7 @@ generate
 for(i=0; i<numberOfDigits; i=i+1) begin: forloop1
 for(j=0; j<numberOfDigits; j=j+1) begin: forloop2
 	if (i == j) begin
-		digit_2_10 #(busWidth) digit_2_10_inst(	
+		digit_2_10 digit_2_10_inst(	
 		.clk(clk),
 		.rst(rst),
 		.bitin(digitCInOut[i][j]),
@@ -42,7 +42,7 @@ for(j=0; j<numberOfDigits; j=j+1) begin: forloop2
 		.numOut(digitInOut[i][j+1]));
 	end
 	else 
-		oneDFF #(busWidth) oneDFF4_inst(
+		oneDFF #(4) oneDFF4_inst(
 		.clk(clk),
 		.rst(rst),
 		.numIn(digitInOut[i][j]),

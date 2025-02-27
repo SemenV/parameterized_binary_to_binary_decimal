@@ -5,14 +5,14 @@
 */
 
 
-module digit_2_10 #(parameter busWidth)(
+module digit_2_10 (
 input clk,rst,bitin,
-input [busWidth-1:0] numIn,
-output [busWidth-1:0] numOut,
+input [3:0] numIn,
+output [3:0] numOut,
 output reg bitOut = 0
 );
-reg [busWidth-1:0] storege = '0 ;
-wire [busWidth-1:0] over6;
+reg [3:0] storege = '0 ;
+wire [3:0] over6;
 wire overflowOver6;
 														//9				//6		0
 assign {overflowOver6,over6} =  ((bitin + numIn + storege) > 5'b1001) ? 5'b0110:  5'b0000;

@@ -1,15 +1,15 @@
 `timescale 1ns/1ns
-module tb_number_2_10 #(parameter numberOfDigits = 3,busWidth = 4) ();
+module tb_number_2_10 #(parameter numberOfDigits = 3) ();
 	reg 			tb_clk = 1'b0;
 	reg 			tb_rst = 1'b0;
 	reg				tb_digitCIn = 0;
-	reg		[busWidth * (numberOfDigits) - 1 :0] 	tb_digitIn = 0;
-	wire	[busWidth * (numberOfDigits) - 1 :0]	tb_digitOut;
+	reg		[4 * (numberOfDigits) - 1 :0] 	tb_digitIn = 0;
+	wire	[4 * (numberOfDigits) - 1 :0]	tb_digitOut;
 	wire 			tb_digitCOut;
 
 
 
-number_2_10 #(numberOfDigits,busWidth) number_2_10_inst (
+number_2_10 #(numberOfDigits) number_2_10_inst (
 .clk(tb_clk),
 .rst(tb_rst),
 .digitCIn(tb_digitCIn),

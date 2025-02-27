@@ -1,14 +1,14 @@
 `timescale 1ns/1ns
-module tb_SumOfNumbers2_10 #(parameter binaryNumberWidth = 32,busWidth = 4,counterMod = 4,numberOfDigits=3) ();
+module tb_SumOfNumbers2_10 #(parameter binaryNumberWidth = 32,numberOfDigits=3) ();
 	reg 										tb_clk = 1'b0;
 	reg 										tb_rst = 1'b0;
 	reg 										tb_load = 1'b0;
 	reg [binaryNumberWidth - 1:0] 				tb_binaryNumber = '0;
-	wire[numberOfDigits-1:0][busWidth - 1:0] 	tb_BinaryDecimal;
+	wire[numberOfDigits-1:0][3:0] 	tb_BinaryDecimal;
 	wire 										tb_to2_10Sum;
 
 
-SumOfNumbers2_10 #(binaryNumberWidth,busWidth,counterMod,numberOfDigits) SumOfNumbers2_10_inst (
+SumOfNumbers2_10 #(binaryNumberWidth,numberOfDigits) SumOfNumbers2_10_inst (
 .clk(tb_clk),
 .rst(tb_rst),
 .binaryNumber(tb_binaryNumber),
