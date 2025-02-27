@@ -4,10 +4,10 @@ input load,rst,clk,
 output [numberOfDigits-1:0][3:0] BinaryDecimal,
 output to2_10Sum
 );
-
+localparam counterWidth = $clog2(numberOfDigits - 3);
 wire cOutCounter;
 wire cOutShifter;
-reg [binaryNumberWidth - 1:0] counterDown;
+reg [counterWidth:0] counterDown;
 always_ff @(posedge clk, posedge rst)
 	if (rst) 
 		counterDown <= 0;
