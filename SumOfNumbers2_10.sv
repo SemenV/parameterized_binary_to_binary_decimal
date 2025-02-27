@@ -2,11 +2,11 @@ module SumOfNumbers2_10 #(binaryNumberWidth = 32,busWidth = 4,counterMod = 4,num
 input [binaryNumberWidth - 1:0] binaryNumber,
 input load,rst,clk,
 output [numberOfDigits-1:0][busWidth - 1:0] BinaryDecimal,
-output cOutShifter
+output to2_10Sum
 );
 
 wire cOutCounter;
-
+wire cOutShifter;
 reg [binaryNumberWidth - 1:0] counterDown;
 always_ff @(posedge clk, posedge rst)
 if (rst) 
@@ -20,7 +20,7 @@ else if (cOutShifter || load)
 		else 
 			counterDown <= counterDown - 1;
 		
-assign cOutCounter = !(counterDown == 0);
+assign cOutCounter = (counterDown == 0);
 
 
 				
@@ -45,6 +45,7 @@ always @(posedge clk, posedge rst)
 
 
 assign cOutShifter = |shifter;
+assign to2_10Sum = cOutCounter && shifter[0];
 
 	
 		

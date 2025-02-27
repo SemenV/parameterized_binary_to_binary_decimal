@@ -5,7 +5,7 @@ module tb_SumOfNumbers2_10 #(parameter binaryNumberWidth = 32,busWidth = 4,count
 	reg 										tb_load = 1'b0;
 	reg [binaryNumberWidth - 1:0] 				tb_binaryNumber = '0;
 	wire[numberOfDigits-1:0][busWidth - 1:0] 	tb_BinaryDecimal;
-	wire 										tb_cOutShifter;
+	wire 										tb_to2_10Sum;
 
 
 SumOfNumbers2_10 #(binaryNumberWidth,busWidth,counterMod,numberOfDigits) SumOfNumbers2_10_inst (
@@ -14,7 +14,7 @@ SumOfNumbers2_10 #(binaryNumberWidth,busWidth,counterMod,numberOfDigits) SumOfNu
 .binaryNumber(tb_binaryNumber),
 .load(tb_load),
 .BinaryDecimal(tb_BinaryDecimal),
-.cOutShifter(cOutShifter)
+.to2_10Sum(tb_to2_10Sum)
 );
 
 initial
