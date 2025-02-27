@@ -4,7 +4,7 @@ input load,rst,clk,
 output [numberOfDigits-1:0][3:0] BinaryDecimal,
 output to2_10Sum
 );
-localparam counterWidth = $clog2(numberOfDigits - 3);
+localparam counterWidth = $clog2(numberOfDigits - 1);
 wire cOutCounter;
 wire cOutShifter;
 reg [counterWidth:0] counterDown;
@@ -35,10 +35,21 @@ always @(posedge clk, posedge rst)
 	
 assign cOutShifter = |shifter;
 assign to2_10Sum = cOutCounter && shifter[0];
+wire [numberOfDigits-1:0][3:0] digitOUT2;
+wire [numberOfDigits-1:0][3:0] digitIN2 = (to2_10Sum) ? digitOUT2 : '0 ;
 
-	
-		
-		
+wire digitCOut;
+number_2_10  #(numberOfDigits) number_2_10_inst ( 
+.clk(clk),
+.rst(rst),
+.ena(1'b1),
+.digitCIn(load),
+.digitIn(digitIN2),
+.digitOut(digitOUT2),
+.digitCOut(digitCOut)
+);		
+
+assign BinaryDecimal = digitOUT2;		
 		
 endmodule 
 	

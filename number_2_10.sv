@@ -1,5 +1,5 @@
 module number_2_10  #(numberOfDigits = 3) ( 
-input clk,rst,digitCIn,
+input clk,rst,digitCIn,ena,
 input [numberOfDigits-1:0][3:0] digitIn ,
 output [numberOfDigits-1:0][3:0] digitOut  ,
 output digitCOut 
@@ -35,6 +35,7 @@ for(j=0; j<numberOfDigits; j=j+1) begin: forloop2
 		digit_2_10 digit_2_10_inst(	
 		.clk(clk),
 		.rst(rst),
+		.ena(ena),
 		.bitin(digitCInOut[i][j]),
 		.bitOut(digitCInOut[i+1][j+1]),
 		
@@ -45,6 +46,7 @@ for(j=0; j<numberOfDigits; j=j+1) begin: forloop2
 		oneDFF #(4) oneDFF4_inst(
 		.clk(clk),
 		.rst(rst),
+		.ena(ena),
 		.numIn(digitInOut[i][j]),
 		.numOut(digitInOut[i][j+1]));
 end

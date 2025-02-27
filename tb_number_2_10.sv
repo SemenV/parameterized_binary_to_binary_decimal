@@ -34,7 +34,7 @@ begin
 	
 	
 	
-	#200 $stop;
+	#2000 $stop;
 
 end
 

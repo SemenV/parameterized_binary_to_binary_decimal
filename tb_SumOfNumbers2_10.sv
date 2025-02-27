@@ -22,7 +22,7 @@ begin
 
 	#0 tb_rst = 1'b1;
 	#20 tb_rst = 1'b0;
-	#25 tb_binaryNumber = 2'h0B;
+	#25 tb_binaryNumber = 'h0B;
 	#20 tb_load = 1;
 	#10 tb_load = 0;
 
@@ -33,7 +33,7 @@ begin
 	
 	
 	
-	#500 $stop;
+	#2000 $stop;
 
 end
 

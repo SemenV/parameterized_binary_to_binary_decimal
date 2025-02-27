@@ -6,7 +6,7 @@
 
 
 module digit_2_10 (
-input clk,rst,bitin,
+input clk,rst,bitin,ena,
 input [3:0] numIn,
 output [3:0] numOut,
 output reg bitOut = 0
@@ -17,10 +17,10 @@ wire overflowOver6;
 														//9				//6		0
 assign {overflowOver6,over6} =  ((bitin + numIn + storege) > 5'b1001) ? 5'b0110:  5'b0000;
 
-always_ff @(posedge clk)
+always_ff @(posedge clk, posedge rst)
 	if (rst) 
 		{bitOut,storege} <=  '0;
-	else 
+	else if (ena)
 		{bitOut,storege} <= over6 + numIn + bitin + storege;
 	
 assign numOut = storege;
