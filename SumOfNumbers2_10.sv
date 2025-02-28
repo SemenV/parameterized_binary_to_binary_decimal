@@ -13,13 +13,13 @@ always_ff @(posedge clk, posedge rst)
 		counterDown <= 0;
 	else if (cOutShifter || load) 
 		if (load) 
-			counterDown <= numberOfDigits - 2;
+			counterDown <= numberOfDigits - 1;
 		else if (0 == counterDown)
-			counterDown <= numberOfDigits - 2;
+			counterDown <= numberOfDigits - 1;
 		else 
 			counterDown <= counterDown - 1;
 		
-assign cOutCounter = (counterDown == (numberOfDigits - 2));
+assign cOutCounter = (counterDown == 0);
 
 			
 reg [binaryNumberWidth - 1:0] shifter;		
@@ -36,7 +36,7 @@ always @(posedge clk, posedge rst)
 assign cOutShifter = |shifter;
 assign to2_10Sum = cOutCounter && shifter[0];
 wire [numberOfDigits-1:0][3:0] digitOUT2;
-wire [numberOfDigits-1:0][3:0] digitIN2 = (to2_10Sum) ? digitOUT2 : '0 ;
+wire [numberOfDigits-1:0][3:0] digitIN2 = (cOutCounter) ? digitOUT2 : '0 ;
 
 wire digitCOut;
 number_2_10  #(numberOfDigits) number_2_10_inst ( 
