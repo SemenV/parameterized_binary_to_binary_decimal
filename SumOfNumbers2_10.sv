@@ -37,7 +37,6 @@ assign cOutShifter = |shifter;
 assign to2_10Sum = cOutCounter && shifter[0];
 wire [numberOfDigits-1:0][3:0] digitOUT2;
 wire [numberOfDigits-1:0][3:0] digitIN2 = (cOutCounter) ? digitOUT2 : '0 ;
-
 wire digitCOut;
 number_2_10  #(numberOfDigits) number_2_10_inst ( 
 .clk(clk),
@@ -47,9 +46,20 @@ number_2_10  #(numberOfDigits) number_2_10_inst (
 .digitIn(digitIN2),
 .digitOut(digitOUT2),
 .digitCOut(digitCOut)
-);		
+);
 
-assign BinaryDecimal = digitOUT2;		
+wire [numberOfDigits-1:0][3:0] sum_of_2_digitIN = (to2_10Sum) ? digitOUT2 : '0 ;
+wire gnd = '0;
+number_2_10  #(numberOfDigits) sum_of_number_2_10_inst ( 
+.clk(clk),
+.rst(rst),
+.ena(1'b1),
+.digitCIn(gnd),
+.digitIn(sum_of_2_digitIN),
+.digitOut(BinaryDecimal),
+.digitCOut()
+);
+				
 		
 endmodule 
 	
