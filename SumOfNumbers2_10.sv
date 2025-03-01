@@ -1,4 +1,4 @@
-module SumOfNumbers2_10 #(binaryNumberWidth = 32,  numberOfDigits = 6) (
+module SumOfNumbers2_10 #(binaryNumberWidth = 8,  numberOfDigits = 3) (
 input [binaryNumberWidth - 1:0] binaryNumber,
 input load,rst,clk,
 output [numberOfDigits-1:0][3:0] BinaryDecimal,

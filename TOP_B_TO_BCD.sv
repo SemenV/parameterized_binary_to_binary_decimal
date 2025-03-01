@@ -8,21 +8,22 @@ output enaOut
 reg tmpDff1 = 0;
 reg tmpDff2 = 0;
 
-always_ff @(posedge load,posedge clk)
-	casez ({clk,load,tmpDff1,tmpDff2})
-		4'b1100: begin
+always_ff @(posedge clk)
+begin
+	casez ({load,tmpDff1,tmpDff2})
+		3'b100: begin
 			tmpDff1 <= 1;
 			tmpDff2 <= 1;
 		end
-		4'b1111: begin
+		3'b111: begin
 		tmpDff1 <= 0;
 		tmpDff2 <= 1;
 		end
-		4'b1001: begin
+		3'b001: begin
 		tmpDff1 <= 0;
 		tmpDff2 <= 0;
 		end
-		4'b1101: begin
+		3'b101: begin
 			tmpDff1 <= 0;
 			tmpDff2 <= 1;
 		end
@@ -31,6 +32,7 @@ always_ff @(posedge load,posedge clk)
 			tmpDff2 <= 0;
 		end 
 		endcase
+end
 		
  
 
@@ -48,6 +50,5 @@ SumOfNumbers2_10 #(binaryNumberWidth,numberOfDigits) SumOfNumbers2_10_inst (
 .BinaryDecimal(BinaryDecimal),
 .enaOut(enaOut)
 );
-
 
 endmodule 
