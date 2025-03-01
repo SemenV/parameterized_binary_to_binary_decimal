@@ -1,16 +1,17 @@
-module SumOfNumbers2_10 #(binaryNumberWidth = 32,numberOfDigits=3) (
+module SumOfNumbers2_10 #(binaryNumberWidth = 32,  numberOfDigits = 6) (
 input [binaryNumberWidth - 1:0] binaryNumber,
 input load,rst,clk,
 output [numberOfDigits-1:0][3:0] BinaryDecimal,
-output to2_10Sum
+output enaOut
 );
+
+wire cOutShifter;
 localparam counterWidth = $clog2(numberOfDigits - 1);
 wire cOutCounter;
-wire cOutShifter;
 reg [counterWidth:0] counterDown;
 always_ff @(posedge clk, posedge rst)
 	if (rst) 
-		counterDown <= 0;
+		counterDown <= '0;
 	else if (cOutShifter || load) 
 		if (load) 
 			counterDown <= numberOfDigits - 1;
@@ -32,7 +33,7 @@ always @(posedge clk, posedge rst)
 		else 
 			shifter <= {1'b0,shifter[binaryNumberWidth - 1:1]};
 	
-	
+wire to2_10Sum;	
 assign cOutShifter = |shifter;
 assign to2_10Sum = cOutCounter && shifter[0];
 wire [numberOfDigits-1:0][3:0] digitOUT2;
@@ -59,7 +60,13 @@ number_2_10  #(numberOfDigits) sum_of_number_2_10_inst (
 .digitOut(BinaryDecimal),
 .digitCOut()
 );
-				
+generate_dff #(numberOfDigits - 1,1) generate_dff_inst (
+.clk(clk),
+.rst(rst),
+.ena(1'b1),
+.digitIn(cOutShifter),
+.digitOut(enaOut)
+);		
 		
 endmodule 
 	

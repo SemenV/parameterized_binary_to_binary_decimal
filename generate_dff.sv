@@ -1,5 +1,5 @@
 module generate_dff #(parameter numberOfDFF,busWidth) (
-input clk,rst,
+input clk,rst,ena,
 input [busWidth - 1:0] digitIn,
 output [busWidth - 1:0] digitOut
 );
@@ -13,6 +13,7 @@ for(i=0; i < numberOfDFF; i=i+1) begin: forloop
 	oneDFF #(busWidth) oneDFF_inst(
 	.clk(clk),
 	.rst(rst),
+	.ena(ena),
 	.numIn(numInOut[i]),
 	.numOut(numInOut[i+1]));
 end
